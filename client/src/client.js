@@ -28,14 +28,6 @@ document
     .querySelector('#chat-form')
     .addEventListener('submit', onFormSubmitted);
 
-
-/*const placeEgg = (text) => {
-    document.getElementById('color').textContent = "red";
-    const box = document.querySelector(text);
-    box.classList.add('red');
-};*/
-
-
 writeEvent('Welcome to RPS');
 
 var room = "room";
@@ -46,15 +38,26 @@ sock.emit('join', room);
 
 sock.on('message', writeEvent);
 
-sock.on('red', function(index) {
-    document.getElementById('color').textContent = index;
+const red = (index) => {
     if (index !== "Hi, you are connected"){
         console.log(index);
 
         const box = document.getElementById(index);
         box.classList.add('red');
     }
-});
+};
+
+const blue = (index) => {
+    if (index !== "Hi, you are connected"){
+        console.log(index);
+
+        const box = document.getElementById(index);
+        box.classList.add('blue');
+    }
+};
+
+sock.on('red', red);
+sock.on('blue', blue);
 
 document.querySelector('#room1').addEventListener('click', function(e){
     room = "room1";
@@ -63,14 +66,53 @@ document.querySelector('#room1').addEventListener('click', function(e){
 });
 
 
-// ------------------------ mouse position -----------
-window.addEventListener('mousemove', function (e){
-    document.getElementById('x-value').textContent = e.x;
-    document.getElementById('y-value').textContent = e.y;
-
-});
 
 
+
+//------------------------------------
+
+const grid = document.querySelector('.grid');
+let width = 15;
+let squares = [];
+let count = 0;
+
+//create Board
+function createBoard() {
+    for (let i = 0; i < width*width; i++){
+        const square = document.createElement('div');
+        square.setAttribute('id', i);
+        grid.appendChild(square);
+        squares.push(square);
+
+        square.addEventListener('click', function(e) {
+            click(square)
+        })
+    }
+}
+
+createBoard();
+
+function click(square) {
+    const index = squares.indexOf(square);
+    if (count % 2 === 0){
+        //square.classList.add('red');
+        sock.emit('red', index);
+    }
+    else{
+        //square.classList.add('blue');
+        sock.emit('blue', index);
+    }
+    count++;
+}
+//------------------------------------
+
+
+
+
+
+
+
+/*
 // https://www.youtube.com/watch?v=W0No1JDc6vE
 document.addEventListener('DOMContentLoaded', () => {
     const grid = document.querySelector('.grid');
@@ -108,4 +150,4 @@ document.addEventListener('DOMContentLoaded', () => {
         count++;
     }
 
-});
+});*/

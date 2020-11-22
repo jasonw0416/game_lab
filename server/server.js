@@ -37,7 +37,11 @@ io.on('connection', (sock) => {
 
     sock.on('red', (text) => {
         io.emit('red', text);
-    })
+    });
+
+    sock.on('blue', (text) => {
+        io.emit('blue', text)
+    });
 });
 
 server.on('error', (err) => {
