@@ -20,17 +20,32 @@ io.on('connection', (sock) => {
     console.log('Someone connected');
     sock.emit('message', 'Hi, you are connected');
 
+    sock.on('join', function(room) {
+        sock.leave("room");
+        console.log("joined " + room);
+        sock.join(room);
+    });
+
+    sock.on('message room', (text, room) => {
+        console.log("sending " + text + " to room: " + room);
+        io.to(room).emit('message', text);
+    });
+
     sock.on('message', (text) => {
         io.emit('message', text);
     });
+
+    sock.on('red', (text) => {
+        io.emit('red', text);
+    })
 });
 
 server.on('error', (err) => {
     console.error('Server error:', err);
 });
 
-server.listen(8080, () => {
-    console.log('RPS started on 8080');
+server.listen(7000, () => {
+    console.log('RPS started on 7000');
 });
 
 

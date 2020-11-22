@@ -1,6 +1,8 @@
 //https://www.youtube.com/watch?v=P2i11xnrpNI
 
 const writeEvent = (text) => {
+    console.log("received " + text);
+
     // <ul> element
     const parent = document.querySelector('#events');
 
@@ -18,8 +20,14 @@ const onFormSubmitted = (e) => {
     const text = input.value;
     input.value = '';
 
-    sock.emit('message', text);
+    console.log('message room ' + text +"  " + room);
+    sock.emit('message room', text, room);
 };
+
+document
+    .querySelector('#chat-form')
+    .addEventListener('submit', onFormSubmitted);
+
 
 /*const placeEgg = (text) => {
     document.getElementById('color').textContent = "red";
@@ -27,12 +35,18 @@ const onFormSubmitted = (e) => {
     box.classList.add('red');
 };*/
 
+
 writeEvent('Welcome to RPS');
 
+var room = "room";
+
+
 const sock = io();
-//sock.on('message', writeEvent);
-//sock.on('red', placeEgg);
-sock.on('message', function(index) {
+sock.emit('join', room);
+
+sock.on('message', writeEvent);
+
+sock.on('red', function(index) {
     document.getElementById('color').textContent = index;
     if (index !== "Hi, you are connected"){
         console.log(index);
@@ -40,13 +54,13 @@ sock.on('message', function(index) {
         const box = document.getElementById(index);
         box.classList.add('red');
     }
-
 });
 
-
-document
-    .querySelector('#chat-form')
-    .addEventListener('submit', onFormSubmitted);
+document.querySelector('#room1').addEventListener('click', function(e){
+    room = "room1";
+    console.log('CLICKED' + room);
+    sock.emit('join', room);
+});
 
 
 // ------------------------ mouse position -----------
@@ -85,19 +99,26 @@ document.addEventListener('DOMContentLoaded', () => {
             //square.classList.add('red');
             const ind = squares.indexOf(square);
             const index = ind;
-            sock.emit('message', index);
+            if(!( square.classList.contains('blue') || square.classList.contains('red'))){
+                sock.emit('message', index);
+                square.classList.add('red');
+                count++;
+            }
         }
         else{
-            if(!( square.classList.contains('red'))){
+            const ind = squares.indexOf(square);
+            const index = ind;
+
+            if(!( square.classList.contains('red') || square.classList.contains('red'))){
+                sock.emit('message', index);
                 square.classList.add('blue');
+                count++;
             }
-            else{
-                count--;
-            }
+            
 
             //sock.emit('message', 'blue');
         }
-        count++;
+    
     }
 
 });
