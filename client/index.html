@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>RPS</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <!--<script src="src/app.js" charset="utf-8"></script>-->
+</head>
+<body>
+<div class="rps-wrapper">
+    <button id="room1">ROOM 1</button>
+    <button id="room2">ROOM 2</button>
+    <button id="room3">ROOM 3</button>
+
+    <button id="redplayer">Choose Red</button>
+    <button id="blueplayer">Choose Blue</button>
+
+    <ul id="events"></ul>
+
+    <div class="button-wrapper">
+        <form id="chat-form">
+            <input id="chat" />
+            <button id="say">Say</button>
+        </form>
+
+    </div>
+
+
+    <p>
+        COLOR: <span id="color"></span>
+    </p>
+    <p>
+        Room: <span id="room"></span>
+    </p>
+    <div class="grid" id="grid"></div>
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="src/client.js"></script>
+</body>
+</html>
