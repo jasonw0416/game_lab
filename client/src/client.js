@@ -83,6 +83,8 @@ function changeroom(joiningroom){
     color = "";
     color_val = "-1";
     squares = [];
+    document.getElementById('color').textContent = "";
+    document.getElementById('room').textContent = joiningroom;
     createBoard();
 }
 //-----------------------------------------------
@@ -98,6 +100,8 @@ document.querySelector('#redplayer').addEventListener('click', function(e){
     else{
         color = "red";
         color_val = 0;
+        document.getElementById('color').textContent = "red";
+
     }
 });
 document.querySelector('#blueplayer').addEventListener('click', function(e){
@@ -108,6 +112,8 @@ document.querySelector('#blueplayer').addEventListener('click', function(e){
         color = "blue";
         color_val = 1;
         count++;
+        document.getElementById('color').textContent = "blue";
+
     }
 });
 
