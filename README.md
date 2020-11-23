@@ -8,6 +8,8 @@ Each players are now able to interact with the grey grid. The player with red co
 
 If you decide to join different room, your board will reset, leave the previous room, and join the new room.
 
+The users are also able to chat through the text boxes. Your chat will only be displayed if you are in the same room.
+
 The server is done by socket.io and express.
 
 We used form of div and main.css with more functions in javascript to click on the grid and assign the "square" object either "red" or "blue" class in main.css that colors the object.
