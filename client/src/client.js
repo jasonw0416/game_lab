@@ -48,12 +48,14 @@ const red = (index) => {
     const box = document.getElementById(index);
     box.classList.add('red');
     count++;
+    array[index] = 1;
 };
 
 const blue = (index) => {
     const box = document.getElementById(index);
     box.classList.add('blue');
     count++;
+    array[index] = 2;
 };
 
 sock.on('red', red);
@@ -83,6 +85,7 @@ function changeroom(joiningroom){
     color = "";
     color_val = "-1";
     squares = [];
+    array = [];
     document.getElementById('color').textContent = "";
     document.getElementById('room').textContent = joiningroom;
     createBoard();
@@ -122,6 +125,7 @@ const grid = document.querySelector('.grid');
 let width = 15;
 let squares = [];
 let count = 0;
+let array = [];
 
 //create Board
 function createBoard() {
@@ -131,6 +135,7 @@ function createBoard() {
         square.setAttribute('id', i);
         grid.appendChild(square);
         squares.push(square);
+        array.push(0);
 
         square.addEventListener('click', function(e) {
             console.log("color_val: " + color_val);
