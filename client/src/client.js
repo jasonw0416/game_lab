@@ -48,14 +48,12 @@ const red = (index) => {
     const box = document.getElementById(index);
     box.classList.add('red');
     count++;
-    array[index] = 1;
 };
 
 const blue = (index) => {
     const box = document.getElementById(index);
     box.classList.add('blue');
     count++;
-    array[index] = 2;
 };
 
 sock.on('red', red);
@@ -85,7 +83,6 @@ function changeroom(joiningroom){
     color = "";
     color_val = "-1";
     squares = [];
-    array = [];
     document.getElementById('color').textContent = "";
     document.getElementById('room').textContent = joiningroom;
     createBoard();
@@ -125,7 +122,6 @@ const grid = document.querySelector('.grid');
 let width = 15;
 let squares = [];
 let count = 0;
-let array = [];
 
 //create Board
 function createBoard() {
@@ -135,16 +131,159 @@ function createBoard() {
         square.setAttribute('id', i);
         grid.appendChild(square);
         squares.push(square);
-        array.push(0);
 
         square.addEventListener('click', function(e) {
             console.log("color_val: " + color_val);
             console.log("count: " + count);
             if (count % 2 === color_val && square.classList !== 'red' && square.classList !== 'blue'){
                 click(square);
+                updateArrayofColors();
+                if(checkWin() !== 0){
+                    if (checkWin() === 1){
+                        alert("red has won");
+                    }
+                    else{
+                        alert("blue has won");
+                    }
+                }
             }
         })
     }
+    updateArrayofColors();
+}
+
+
+
+function updateArrayofColors(){
+    for (let i = 0; i < width; i++){
+        let temp = [];
+        for (let j = 0; j < width; j++){
+            if(squares[15 * i + j].classList.contains("red")){
+                temp.push(1);
+            }
+            else if(squares[15 * i + j].classList.contains("blue")){
+                temp.push(2);
+            }
+            else{
+                temp.push(0);
+            }
+        }
+        array.push(temp);
+    }
+}
+
+function checkWin(){
+    let bool = false;
+    for (let i = 0; i < width; i++){
+        for (let j = 0; j < width; j++){
+            if(array[i][j] === 0){
+                continue;
+            }
+            if(i <= width - 5){
+                bool = bool || checkDown(j, i, array[i][j]);
+            }
+            if(i >= 4){
+                bool = bool || checkUp(j, i, array[i][j]);
+            }
+            if(j <= width - 5){
+                bool = bool || checkRight(j, i, array[i][j]);
+            }
+            if(j >= 4){
+                bool = bool || checkLeft(j, i, array[i][j]);
+            }
+            if((j <= width - 5 ) && (i >= 4)){
+                bool = bool || check45(j, i, array[i][j]);
+            }
+            if((i >= 4) && (j >= 4)){
+                bool = bool || check135(j, i, array[i][j]);
+            }
+            if((i <= width - 5 ) && (j >= 4)){
+                bool = bool || check225(j, i, array[i][j]);
+            }
+            if((j <= width - 5 ) && (i <= width - 5)){
+                bool = bool || check315(j, i, array[i][j]);
+            }
+            if(bool === true){
+                return array[i][j]
+            }
+        }
+    }
+    return 0;
+
+}
+
+function checkDown(x, y, color){
+    for (let i = y + 1; i < y + 5; i++){
+        if(array[i][x] !== color){
+            return false;
+        }
+    }
+    return true;
+}
+
+function checkUp(x, y, color){
+    for (let i = y - 1; i > y - 5; i--){
+        if(array[i][x] !== color){
+            return false;
+        }
+    }
+    return true;
+
+}
+function checkRight(x, y, color){
+    for (let i = x + 1; i < x + 5; i++){
+        if(array[y][i] !== color){
+            return false;
+        }
+    }
+    return true;
+}
+function checkLeft(x, y, color){
+    for (let i = x - 1; i > x - 5; i--){
+        if(array[y][i] !== color){
+            return false;
+        }
+    }
+    return true;
+
+}
+function check45(x, y, color){
+    for (let i = y - 1; i > y - 5; i--){
+        x++;
+        if(array[y][x] !== color){
+            return false;
+        }
+    }
+    return true;
+
+}
+function check135(x, y, color){
+    for (let i = y - 1; i > y - 5; i--){
+        x--;
+        if(array[y][x] !== color){
+            return false;
+        }
+    }
+    return true;
+
+}
+function check225(x, y, color){
+    for (let i = y + 1; i < y + 5; i++){
+        x--;
+        if(array[y][x] !== color){
+            return false;
+        }
+    }
+    return true;
+}
+function check315(x, y, color){
+    for (let i = y + 1; i < y + 5; i++){
+        x++;
+        if(array[y][x] !== color){
+            return false;
+        }
+    }
+    return true;
 }
 
 
