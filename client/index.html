@@ -7,6 +7,13 @@
 </head>
 <body>
 <div class="rps-wrapper">
+    <button id="room1">ROOM 1</button>
+    <button id="room2">ROOM 2</button>
+    <button id="room3">ROOM 3</button>
+
+    <button id="redplayer">Choose Red</button>
+    <button id="blueplayer">Choose Blue</button>
+
     <ul id="events"></ul>
 
     <div class="button-wrapper">
@@ -17,21 +24,14 @@
 
     </div>
 
-    <p>
-        X: <span id="x-value"></span>
-    </p>
-    <p>
-        Y: <span id="y-value"></span>
-    </p>
 
     <p>
         COLOR: <span id="color"></span>
     </p>
-
-    <div class="grid"></div>
-
-    <button id="room1">ROOM 1</button>
-
+    <p>
+        Room: <span id="room"></span>
+    </p>
+    <div class="grid" id="grid"></div>
 </div>
 
 <script src="/socket.io/socket.io.js"></script>

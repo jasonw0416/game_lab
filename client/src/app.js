@@ -23,10 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
     createBoard();
 
     function click(square) {
-        if(square.classList.contains('red') || square.classList.contains('blue')){
-
-        }
-        else if (count % 2 === 0){
+        if (count % 2 === 0){
             square.classList.add('red');
         }
         else{
