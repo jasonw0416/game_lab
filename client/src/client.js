@@ -248,42 +248,18 @@ function checkLeft(x, y, color){
 
 }
 function check45(x, y, color){
-    for (let i = y - 1; i > y - 5; i--){
-        x++;
-        if(array[y][x] !== color){
-            return false;
-        }
-    }
-    return true;
+    return array[y][x] === array[y - 1][x + 1] === array[y - 2][x + 2] === array[y - 3][x + 3] === array[y - 4][x + 4];
 
 }
 function check135(x, y, color){
-    for (let i = y - 1; i > y - 5; i--){
-        x--;
-        if(array[y][x] !== color){
-            return false;
-        }
-    }
-    return true;
+    return array[y][x] === array[y - 1][x - 1] === array[y - 2][x - 2] === array[y - 3][x - 3] === array[y - 4][x - 4];
 
 }
 function check225(x, y, color){
-    for (let i = y + 1; i < y + 5; i++){
-        x--;
-        if(array[y][x] !== color){
-            return false;
-        }
-    }
-    return true;
+    return array[y][x] === array[y + 1][x - 1] === array[y + 2][x - 2] === array[y + 3][x - 3] === array[y + 4][x - 4];
 }
 function check315(x, y, color){
-    for (let i = y + 1; i < y + 5; i++){
-        x++;
-        if(array[y][x] !== color){
-            return false;
-        }
-    }
-    return true;
+    return array[y][x] === array[y + 1][x + 1] === array[y + 2][x + 2] === array[y + 3][x + 3] === array[y + 4][x + 4];
 }
 
 
