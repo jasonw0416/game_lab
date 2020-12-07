@@ -18,16 +18,52 @@ const io = socketio(server);
 
 var room1 = 0;
 
-io.on('connection', (sock) => {
+let rooms = [];
+var clientData = [];
+var clients = [];
+
+io.sockets.on('connection', function(sock) {
     console.log('Someone connected');
     sock.emit('message', 'Hi, you are connected');
 
     sock.on('join', function(room) {
+        var check = false;
+        for (let i = 0; i < clientData.length; i++){
+            if (clientData[i][0] === room){
+                clientData[i].push(sock.id);
+                check = true;
+                break;
+            }
+        }
+        if (!check){
+            clientData.push([room, sock.id]);
+        }
+        clients.push([sock.id, room]);
         sock.join(room);
     });
 
     sock.on('leave', function(room) {
+        for (let i = 0; i < clientData.length; i++){
+            if (clientData[i][0] === room){
+                for (let j = 0; j < clientData[i].length; j++){
+                    if (clientData[i][j] === sock.id){
+                        clientData[i].splice(j,1);
+                        break;
+                    }
+                }
+            }
+        }
+        for (let i = 0; i < clients.length; i++){
+            if (clients[i][0] === sock.id){
+                clients.splice(i,1);
+                break;
+            }
+        }
         sock.leave(room);
+        if (room !== "room") {
+            io.to(room).emit('left');
+
+        }
     });
 
     sock.on('message room', (text, room) => {
@@ -40,31 +76,58 @@ io.on('connection', (sock) => {
     });
 
     sock.on('red', (text, room) => {
-        /*if (room === "room1"){
-            if (room1 % 2 === 0){
-                room1++;
-                io.to(room).emit('red', text);
-            }
-            else{
-                io.to(room).emit('message', "NOT YOUR TURN, RED!");
-            }
-        }*/
         io.to(room).emit('red', text);
     });
 
     sock.on('blue', (text, room) => {
-        /*if (room === "room1"){
-            if (room1 % 2 === 1){
-                room1++;
-                io.to(room).emit('blue', text);
-            }
-            else{
-                io.to(room).emit('message', "NOT YOUR TURN, BLUE!");
-            }
-        }*/
         io.to(room).emit('blue', text);
     });
+
+    sock.on('join_attempt', (socketId, code) => {
+        if (rooms.includes(code)){
+            io.to(socketId).emit('joining', code);
+        }
+        else{
+            io.to(socketId).emit('join_error', code);
+        }
+    });
+
+    sock.on('create_attempt', (socketId, code) =>{
+        if (rooms.includes(code)){
+            io.to(socketId).emit('create_error', code);
+        }
+        else{
+            rooms.push(code);
+            console.log('created room ' + code);
+            io.to(socketId).emit('creating', code);
+        }
+    });
+
+    sock.on('disconnect', function(){
+        var room_code = '';
+        for (let i = 0; i < clients.length; i++){
+            if (clients[i][0] === sock.id){
+                room_code = clients[i][1];
+                clients.splice(i,1);
+                break;
+            }
+        }
+        for (let i = 0; i < clientData.length; i++){
+            if (clientData[i][0] === room_code){
+                for (let j = 0; j < clientData[i].length; j++){
+                    if (clientData[i][j] === sock.id){
+                        clientData[i].splice(j,1);
+                        break;
+                    }
+                }
+            }
+        }
+        if (room_code !== "room") {
+            io.to(room_code).emit('disconnection');
+        }
+    })
 });
+
 
 server.on('error', (err) => {
     console.error('Server error:', err);

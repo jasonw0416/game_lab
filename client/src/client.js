@@ -41,19 +41,83 @@ writeEvent('Welcome ' + username);
 sock.on('message', writeEvent);
 
 
+// creating rooms right now
+const createRoom = (e) => {
+    e.preventDefault();
 
+    const create_input = document.querySelector('#input_create');
+    const create_code = create_input.value;
+    create_input.value = '';
+
+    console.log("Create code: " + create_code);
+    sock.emit('create_attempt', sock.id, create_code);
+};
+
+document.querySelector('#create-form').addEventListener('submit', createRoom);
+
+const create = (code) => {
+    changeroom(code);
+};
+
+const create_error = (text) => {
+    alert("The room with the code " + text + " already exists. \n Make a room with different code.");
+};
+
+sock.on('creating', create);
+sock.on('create_error', create_error);
+
+// join room
+const joinRoom = (e) => {
+    e.preventDefault();
+
+    const join_input = document.querySelector('#input_join');
+    const join_code = join_input.value;
+    join_input.value = '';
+
+    console.log("Join code: " + join_code);
+    sock.emit('join_attempt', sock.id, join_code);
+};
+
+
+const join = (code) => {
+    changeroom(code);
+};
+
+const join_error = (text) => {
+    alert("The room with your code " + text + " does not exist. ")
+};
+
+document.querySelector('#join-form').addEventListener('submit', joinRoom);
+sock.on('joining', join);
+sock.on('join_error', join_error);
+
+const left = (e) => {
+    alert("The opponent has left. The board will be reset.");
+    changeroom(room);
+};
+sock.on('left', left);
+sock.on('disconnection', left);
 
 // ----------------------- receiving red or blue
 const red = (index) => {
     const box = document.getElementById(index);
     box.classList.add('red');
     count++;
+    console.log(array);
+    array[Math.floor(index/15)][index%15] = 1;
+    if (checkWin() === 1){
+        alert("red has won");
+    }
 };
 
 const blue = (index) => {
     const box = document.getElementById(index);
     box.classList.add('blue');
     count++;
+    array[Math.floor(index/15)][index%15] = 2;
+    if (checkWin() === 2){
+        alert("blue has won");
+    }
 };
 
 sock.on('red', red);
@@ -72,6 +136,7 @@ document.querySelector('#room3').addEventListener('click', function(e){
 });
 
 function changeroom(joiningroom){
+    console.log("attempting to join " + joiningroom);
     sock.emit('leave', room);
     room = joiningroom;
     sock.emit('join', room);
@@ -83,6 +148,7 @@ function changeroom(joiningroom){
     color = "";
     color_val = "-1";
     squares = [];
+    array = Array(15).fill().map(() => Array(15).fill(0));
     document.getElementById('color').textContent = "";
     document.getElementById('room').textContent = joiningroom;
     createBoard();
@@ -111,7 +177,6 @@ document.querySelector('#blueplayer').addEventListener('click', function(e){
     else{
         color = "blue";
         color_val = 1;
-        count++;
         document.getElementById('color').textContent = "blue";
 
     }
@@ -122,6 +187,8 @@ const grid = document.querySelector('.grid');
 let width = 15;
 let squares = [];
 let count = 0;
+let array = Array(15).fill().map(() => Array(15).fill(0));
+
 
 //create Board
 function createBoard() {
@@ -137,40 +204,14 @@ function createBoard() {
             console.log("count: " + count);
             if (count % 2 === color_val && square.classList !== 'red' && square.classList !== 'blue'){
                 click(square);
-                updateArrayofColors();
-                if(checkWin() !== 0){
-                    if (checkWin() === 1){
-                        alert("red has won");
-                    }
-                    else{
-                        alert("blue has won");
-                    }
-                }
+            
             }
         })
     }
-    updateArrayofColors();
+
 }
 
 
-
-function updateArrayofColors(){
-    for (let i = 0; i < width; i++){
-        let temp = [];
-        for (let j = 0; j < width; j++){
-            if(squares[15 * i + j].classList.contains("red")){
-                temp.push(1);
-            }
-            else if(squares[15 * i + j].classList.contains("blue")){
-                temp.push(2);
-            }
-            else{
-                temp.push(0);
-            }
-        }
-        array.push(temp);
-    }
-}
 
 function checkWin(){
     let bool = false;
@@ -245,81 +286,28 @@ function checkLeft(x, y, color){
         }
     }
     return true;
-
 }
 function check45(x, y, color){
-    return array[y][x] === array[y - 1][x + 1] === array[y - 2][x + 2] === array[y - 3][x + 3] === array[y - 4][x + 4];
-
+    return array[y][x] === array[y - 1][x + 1] && array[y - 1][x + 1] === array[y - 2][x + 2] && array[y - 2][x + 2] === array[y - 3][x + 3] && array[y - 3][x + 3] === array[y - 4][x + 4];
 }
 function check135(x, y, color){
-    return array[y][x] === array[y - 1][x - 1] === array[y - 2][x - 2] === array[y - 3][x - 3] === array[y - 4][x - 4];
-
+    return array[y][x] === array[y - 1][x - 1] && array[y - 1][x - 1] === array[y - 2][x - 2] && array[y - 2][x - 2] === array[y - 3][x - 3] && array[y - 3][x - 3] === array[y - 4][x - 4];
 }
 function check225(x, y, color){
-    return array[y][x] === array[y + 1][x - 1] === array[y + 2][x - 2] === array[y + 3][x - 3] === array[y + 4][x - 4];
+    return array[y][x] === array[y + 1][x - 1] && array[y + 1][x - 1] === array[y + 2][x - 2] && array[y + 2][x - 2] === array[y + 3][x - 3] && array[y + 3][x - 3] === array[y + 4][x - 4];
 }
 function check315(x, y, color){
-    return array[y][x] === array[y + 1][x + 1] === array[y + 2][x + 2] === array[y + 3][x + 3] === array[y + 4][x + 4];
+    return array[y][x] === array[y + 1][x + 1] && array[y + 1][x + 1] === array[y + 2][x + 2] && array[y + 2][x + 2] === array[y + 3][x + 3] && array[y + 3][x + 3] === array[y + 4][x + 4];
 }
 
 
 function click(square) {
     const index = squares.indexOf(square);
     sock.emit(color, index, room);
-    /*if (count % 2 === 0){
-        //square.classList.add('red');
-        sock.emit('red', index, room);
-    }
-    else{
-        //square.classList.add('blue');
-        sock.emit('blue', index, room);
-    }
-    count++;*/
+
 }
 //------------------------------------
 
-
-
-
-
-
-
-/*
 // https://www.youtube.com/watch?v=W0No1JDc6vE
-document.addEventListener('DOMContentLoaded', () => {
-    const grid = document.querySelector('.grid');
-    let width = 15;
-    let squares = [];
-    let count = 0;
 
-    //create Board
-    function createBoard() {
-        for (let i = 0; i < width*width; i++){
-            const square = document.createElement('div');
-            square.setAttribute('id', i);
-            grid.appendChild(square);
-            squares.push(square);
 
-            square.addEventListener('click', function(e) {
-                click(square)
-            })
-        }
-    }
-
-    createBoard();
-
-    function click(square) {
-        if (count % 2 === 0){
-            //square.classList.add('red');
-            const ind = squares.indexOf(square);
-            const index = ind;
-            sock.emit('red', index);
-        }
-        else{
-            square.classList.add('blue');
-            //sock.emit('message', 'blue');
-        }
-        count++;
-    }
-
-});*/
