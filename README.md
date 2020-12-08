@@ -22,27 +22,48 @@ You can access our web game in https://stark-cove-49706.herokuapp.com/
 # Protocol:
 ## Message from Server to Client:
 Message: The typical message from server to client that is printed. Mostly chatting messages.
+
 Red: A player has put down the red piece on the board
+
 Blue: A play has put down the blue piece on the board
+
 Joining: The user has successfully joined the room.
+
 Join_error: There was error in the user’s attempt to join the server as the room does not exist.
+
 Create_error: There was an error in the user’s attempt to create the server as the room already exists.
+
 Creating: The user has successfully created and joined the room
+
 Restart-request: A player has requested to restart the game and sends to the opponent
+
 Restart-yes: A player has accepted the request to restart
+
 Restart-no: A player has declined the request to restart
+
 Left: A player has left the room, notifying the other player.
+
 Disconnection: A player has disconnected (possibly leave the browser) from the room, notifying the other player in the room.
 
 ## Message from Client to Server
 Message room:The player has sent a message to the room.
+
 Create_attempt: A player is attempting to create room and request its permission to the server
+
 Join_atttempt: A player is attempting to join different room and request its permission to the server
+
 Leave: A player has left the current room
+
 Join: A player has joined the new room.
+
 Red: A player has put down a red piece on the board.
+
 Blue: A player has put down a blue piece on the board.
+
 Request-restart: A player is sending request to restart the game to the opponent
+
 Restart-yes: A player replied yes to the opponent’s request to restart
+
 Restart-no: A player replied no to the opponent’s request to restart
+
 Disconnect: A player has disconnected (possibly leave the page or disconnect from internet) from the room; it is a default message that is sent whenever a client disconnects from the server. 
