@@ -6,7 +6,7 @@ const socketio = require('socket.io');
 
 const app = express();
 
-const clientPath = `${__dirname}/../client`;
+const clientPath = `${__dirname}/client`;
 //const clientPath = `/Users/wonjunlee/WebstormProjects/game_lab/client/gomoku.html`;
 console.log(`Serving static from ${clientPath}`);
 
@@ -137,4 +137,9 @@ server.listen(7000, () => {
     console.log('RPS started on 7000');
 });
 
+/*
+server.listen(process.env.PORT || 7000, () => {
+    console.log('RPS started on 7000');
+});
+ */
 
