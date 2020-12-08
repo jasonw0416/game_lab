@@ -1,4 +1,4 @@
-# game_lab
+# game_lab - Gomoku
 
 Before you start the games, the client has an ability to choose room: room1, room2, room3. This is done by clicking one of three buttons on the top left. In addition to these three rooms, the players have the ability to create their own room and join other people's room using their own codes.
 
