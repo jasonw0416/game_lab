@@ -20,7 +20,14 @@ var room1 = 0;
 
 let rooms = [];
 var clientData = [];
+/* the data are stored like:
+[[room1, client1, client2],
+ [room2, client3]
+ [room3, client4, client5]...]
+*/
 var clients = [];
+// the data are stored like: [[client1, room1], [client2, room2], [client3, room3], ...]]
+
 
 io.sockets.on('connection', function(sock) {
     console.log('Someone connected');
@@ -62,7 +69,6 @@ io.sockets.on('connection', function(sock) {
         sock.leave(room);
         if (room !== "room") {
             io.to(room).emit('left');
-
         }
     });
 
