@@ -179,7 +179,7 @@ server.on('error', (err) => {
     console.error('Server error:', err);
 });
 
-server.listen(7000, () => {
+server.listen(process.env.PORT || 7000, () => {
     console.log('RPS started on 7000');
 });
 
