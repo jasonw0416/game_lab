@@ -1,12 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <style>
+        h1 {
+            background: #0b0e07;
+            color: white;
+            padding: 20px;
+            font-family: 'Courier New', monospace;
+        }
+    </style>
     <title>RPS</title>
     <link rel="stylesheet" href="styles/main.css">
     <link href="styles/transitions.css" rel="stylesheet">
     <!--<script src="src/app.js" charset="utf-8"></script>-->
 </head>
 <body>
+<h1>Gomoku Connect 5</h1>
 <nav>
     <ul>
         <li><a href="transitiondemo.html">transitiondemo</a></li>
@@ -19,19 +28,19 @@
 </main>
 
 <div class="rps-wrapper">
-    <button id="room1">ROOM 1</button>
-    <button id="room2">ROOM 2</button>
-    <button id="room3">ROOM 3</button>
+    <button class="myRoom" id="room1">ROOM 1</button>
+    <button class="myRoom" id="room2">ROOM 2</button>
+    <button class="myRoom" id="room3">ROOM 3</button>
 
-    <button id="redplayer">Choose Red</button>
-    <button id="blueplayer">Choose Blue</button>
+    <button class="myRed" id="redplayer">Choose Red</button>
+    <button class="myBlue" id="blueplayer">Choose Blue</button>
 
     <ul id="events"></ul>
 
     <div class="button-wrapper">
         <form id="chat-form">
             <input id="chat" />
-            <button id="say">Say</button>
+            <button class="mySend" id="say">Send</button>
         </form>
 
     </div>
