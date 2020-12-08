@@ -202,7 +202,8 @@ function createBoard() {
         square.addEventListener('click', function(e) {
             console.log("color_val: " + color_val);
             console.log("count: " + count);
-            if (count % 2 === color_val && square.classList !== 'red' && square.classList !== 'blue'){
+            console.log(square.classList);
+            if (count % 2 === color_val && !square.classList.contains('red') && !square.classList.contains('blue')){
                 click(square);
                 //updateArrayofColors();
                 /*if(checkWin() !== 0){
@@ -261,16 +262,16 @@ function checkWin(){
                 bool = bool || checkLeft(j, i, array[i][j]);
             }
             if((j <= width - 5 ) && (i >= 4)){
-                bool = bool || check45(j, i, array[i][j]);
+                bool = bool || check45(j, i);
             }
             if((i >= 4) && (j >= 4)){
-                bool = bool || check135(j, i, array[i][j]);
+                bool = bool || check135(j, i);
             }
             if((i <= width - 5 ) && (j >= 4)){
-                bool = bool || check225(j, i, array[i][j]);
+                bool = bool || check225(j, i);
             }
             if((j <= width - 5 ) && (i <= width - 5)){
-                bool = bool || check315(j, i, array[i][j]);
+                bool = bool || check315(j, i);
             }
             if(bool === true){
                 return array[i][j]
@@ -316,43 +317,22 @@ function checkLeft(x, y, color){
     return true;
 
 }
-function check45(x, y, color){
-    for (let i = y - 1; i > y - 5; i--){
-        x++;
-        if(array[y][x] !== color){
-            return false;
-        }
-    }
-    return true;
+function check45(x, y){
+    return array[y][x] === array[y - 1][x + 1] && array[y - 1][x + 1] === array[y - 2][x + 2] && array[y - 2][x + 2] === array[y - 3][x + 3] && array[y - 3][x + 3] === array[y - 4][x + 4];
+
 
 }
-function check135(x, y, color){
-    for (let i = y - 1; i > y - 5; i--){
-        x--;
-        if(array[y][x] !== color){
-            return false;
-        }
-    }
-    return true;
+function check135(x, y){
+    return array[y][x] === array[y - 1][x - 1] && array[y - 1][x - 1] === array[y - 2][x - 2] && array[y - 2][x - 2] === array[y - 3][x - 3] && array[y - 3][x - 3] === array[y - 4][x - 4];
 
 }
-function check225(x, y, color){
-    for (let i = y + 1; i < y + 5; i++){
-        x--;
-        if(array[y][x] !== color){
-            return false;
-        }
-    }
-    return true;
+function check225(x, y){
+    return array[y][x] === array[y + 1][x - 1] && array[y + 1][x - 1] === array[y + 2][x - 2] && array[y + 2][x - 2] === array[y + 3][x - 3] && array[y + 3][x - 3] === array[y + 4][x - 4];
+
 }
-function check315(x, y, color){
-    for (let i = y + 1; i < y + 5; i++){
-        x++;
-        if(array[y][x] !== color){
-            return false;
-        }
-    }
-    return true;
+function check315(x, y){
+    return array[y][x] === array[y + 1][x + 1] && array[y + 1][x + 1] === array[y + 2][x + 2] && array[y + 2][x + 2] === array[y + 3][x + 3] && array[y + 3][x + 3] === array[y + 4][x + 4];
+
 }
 
 

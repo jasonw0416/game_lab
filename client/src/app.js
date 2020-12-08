@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const square = document.createElement('div');
             square.setAttribute('id', i);
             grid.appendChild(square);
-            squares.push(square)
+            squares.push(square);
 
             square.addEventListener('click', function(e) {
                 click(square)
