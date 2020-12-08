@@ -93,10 +93,12 @@ sock.on('join_error', join_error);
 
 const left = (e) => {
     alert("The opponent has left. The board will be reset.");
-    changeroom(room);
+    reset();
 };
 sock.on('left', left);
 sock.on('disconnection', left);
+
+var win = false;
 
 // ----------------------- receiving red or blue
 const red = (index) => {
@@ -106,6 +108,7 @@ const red = (index) => {
     console.log(array);
     array[Math.floor(index/15)][index%15] = 1;
     if (checkWin() === 1){
+        win = true;
         alert("red has won");
     }
 };
@@ -116,6 +119,7 @@ const blue = (index) => {
     count++;
     array[Math.floor(index/15)][index%15] = 2;
     if (checkWin() === 2){
+        win = true;
         alert("blue has won");
     }
 };
@@ -140,6 +144,13 @@ function changeroom(joiningroom){
     sock.emit('leave', room);
     room = joiningroom;
     sock.emit('join', room);
+    document.getElementById('room').textContent = joiningroom;
+    reset();
+}
+//-----------------------------------------------
+
+//---reset board---
+function reset(){
     const myNode = document.getElementById("grid");
     while (myNode.firstChild) {
         myNode.removeChild(myNode.lastChild);
@@ -150,10 +161,9 @@ function changeroom(joiningroom){
     squares = [];
     array = Array(15).fill().map(() => Array(15).fill(0));
     document.getElementById('color').textContent = "";
-    document.getElementById('room').textContent = joiningroom;
     createBoard();
+    win = false;
 }
-//-----------------------------------------------
 
 var color = "";
 var color_val = "-1";
@@ -203,7 +213,10 @@ function createBoard() {
             console.log("color_val: " + color_val);
             console.log("count: " + count);
             console.log(square.classList);
-            if (count % 2 === color_val && !square.classList.contains('red') && !square.classList.contains('blue')){
+            if (win){
+                alert("The game is over. Please request for the restart on the bottom of the page.");
+            }
+            else if (count % 2 === color_val && !square.classList.contains('red') && !square.classList.contains('blue')){
                 click(square);
                 //updateArrayofColors();
                 /*if(checkWin() !== 0){
@@ -345,4 +358,31 @@ function click(square) {
 
 // https://www.youtube.com/watch?v=W0No1JDc6vE
 
+// restart
+document.querySelector('#restart').addEventListener('click', function(e){
+    var r = confirm("Request the opponent to restart the game?");
+    if (r){
+        sock.emit("request-restart", room);
+    }
+});
 
+sock.on('restart-request', function(){
+    var r = confirm("The opponent wants to restart, would you like to restart?");
+    if (r){
+        sock.emit("restart-yes", room);
+        alert("The board will reset.");
+        reset();
+    }
+    else {
+        sock.emit("restart-no", room);
+    }
+});
+
+sock.on('restart-yes', function(){
+    alert("The opponent has agreed to restart. The board will be reset.");
+    reset();
+});
+
+sock.on('restart-no', function(){
+    alert("The opponent has disagreed to restart. Continue the game.")
+});

@@ -109,6 +109,46 @@ io.sockets.on('connection', function(sock) {
         }
     });
 
+    sock.on('request-restart', (room) =>{
+        for (let i = 0; i < clientData.length; i++){
+            if (clientData[i][0] === room){
+                for (let j = 1; j < clientData[i].length; j++){
+                    if (clientData[i][j] !== sock.id){
+                        io.to(clientData[i][j]).emit('restart-request');
+                    }
+                }
+                break;
+            }
+        }
+    });
+
+    sock.on('restart-yes', (room)=>{
+        for (let i = 0; i < clientData.length; i++){
+            if (clientData[i][0] === room){
+                for (let j = 1; j < clientData[i].length; j++){
+                    if (clientData[i][j] !== sock.id){
+                        io.to(clientData[i][j]).emit('restart-yes');
+                    }
+                }
+                break;
+            }
+        }
+    });
+
+    sock.on('restart-no', (room)=>{
+        for (let i = 0; i < clientData.length; i++){
+            if (clientData[i][0] === room){
+                for (let j = 1; j < clientData[i].length; j++){
+                    if (clientData[i][j] !== sock.id){
+                        io.to(clientData[i][j]).emit('restart-no');
+                    }
+                }
+                break;
+            }
+        }
+    });
+
+
     sock.on('disconnect', function(){
         var room_code = '';
         for (let i = 0; i < clients.length; i++){
