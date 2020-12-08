@@ -6,7 +6,7 @@ const socketio = require('socket.io');
 
 const app = express();
 
-const clientPath = `${__dirname}/../client`;
+const clientPath = `${__dirname}/client`;
 //const clientPath = `/Users/wonjunlee/WebstormProjects/game_lab/client/gomoku.html`;
 console.log(`Serving static from ${clientPath}`);
 
