@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        h1 {
+            background: #0b0e07;
+            color: white;
+            padding: 20px;
+            font-family: 'Courier New', monospace;
+        }
+        p{
+            font-weight: bold;
+            padding: 5px;
+            font-family: 'Courier New', monospace;
+        }
+        .grid{
+            position:absolute;
+            left: 13px;
+            top: 490px;
+        }
+        img{
+            top: 420px;
+            left: 50px;
+            width: 610px;
+            height: 610px;
+        }
+    </style>
+    <title>RPS</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <!--<script src="src/app.js" charset="utf-8"></script>-->
+</head>
+<body>
+<h1>Gomoku Connect 5</h1>
+
+<button class="myGray" onclick="window.location.href= 'index.html'">Return to Menu</button><br>
+<br>
+<form id="create-form">
+    <input id="input_create" />
+    <button class="myRoom" id="create">Create</button>
+</form>
+
+<form id="join-form">
+    <input id="input_join" />
+    <button class="myRoom" id="join">Join</button>
+</form>
+<br>
+
+<div class="rps-wrapper">
+    <button class="myRoom" id="room1">ROOM 1</button>
+    <button class="myRoom" id="room2">ROOM 2</button>
+    <button class="myRoom" id="room3">ROOM 3</button>
+
+    <button class="myRed" id="redplayer">Choose Red</button>
+    <button class="myBlue" id="blueplayer">Choose Blue</button>
+
+    <ul id="events"></ul>
+
+    <div class="button-wrapper">
+        <form id="chat-form">
+            <input id="chat" />
+            <button class="mySend" id="say">Send</button>
+        </form>
+
+    </div>
+
+
+    <p>
+        COLOR: <span id="color"></span>
+    </p>
+    <p>
+        Room: <span id="room"></span>
+    </p>
+    <div class="grid" id="grid"></div>
+    <img src="board.PNG" class="cover" />
+    <br>
+</div>
+
+<br><br><button class="myGray" id="restart">Request Restart</button>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="src/client.js"></script>
+</body>
+</html>

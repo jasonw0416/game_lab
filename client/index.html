@@ -1,53 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>RPS</title>
-    <link rel="stylesheet" href="styles/main.css">
-    <!--<script src="src/app.js" charset="utf-8"></script>-->
+    <style>
+        h1 {
+            text-align: center;
+            color: blue;
+            font-family: verdana;
+            font-size: 300%;
+        }
+        button {
+            margin:0 auto;
+            display:block;
+            box-shadow:inset 0px 1px 0px 0px #54a3f7;
+            background:linear-gradient(to bottom, #007dc1 5%, #0061a7 100%);
+            background-color:#007dc1;
+            border-radius:3px;
+            border:1px solid #124d77;
+            cursor:pointer;
+            color:#ffffff;
+            font-family:Arial;
+            font-size:24px;
+            padding:6px 24px;
+            text-decoration:none;
+            text-shadow:0px 1px 0px #154682;
+            width: 25%;
+        }
+        button:hover {
+            background:linear-gradient(to bottom, #0061a7 5%, #007dc1 100%);
+            background-color:#0061a7;
+        }
+        button:active {
+            position:relative;
+            top:1px;
+        }
+        img{
+            margin:0 auto;
+            display:block;
+        }
+
+    </style>
+    <meta charset="UTF-8">
+    <title>Gomoku (Connect 5)</title>
 </head>
 <body>
-<form id="create-form">
-    <input id="input_create" />
-    <button id="create">Create</button>
-</form>
 
-<form id="join-form">
-    <input id="input_join" />
-    <button id="join">Join</button>
-</form>
+<h1>Connect 5 (Gomoku)</h1>
 
+<button onclick="window.location.href= 'game.html'">Create/Join Game</button><br>
+<button onclick="window.close()">Quit</button>
 
-<div class="rps-wrapper">
-    <button id="room1">ROOM 1</button>
-    <button id="room2">ROOM 2</button>
-    <button id="room3">ROOM 3</button>
-
-    <button id="redplayer">Choose Red</button>
-    <button id="blueplayer">Choose Blue</button>
-
-    <ul id="events"></ul>
-
-    <div class="button-wrapper">
-        <form id="chat-form">
-            <input id="chat" />
-            <button id="say">Say</button>
-        </form>
-
-    </div>
-
-
-    <p>
-        COLOR: <span id="color"></span>
-    </p>
-    <p>
-        Room: <span id="room"></span>
-    </p>
-    <div class="grid" id="grid"></div>
-</div>
-
-<button id="restart">Request Restart</button>
-
-<script src="/socket.io/socket.io.js"></script>
-<script src="src/client.js"></script>
+<img src="gomoku.jpg" alt="Gomoku Board">
 </body>
 </html>
