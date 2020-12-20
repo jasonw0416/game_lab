@@ -1,0 +1,162 @@
+.grid{
+    height: 600px;
+    width: 600px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.grid div{
+    height: 40px;
+    width: 40px;
+}
+
+.red {
+    background-color: red;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.blue {
+    background-color: blue;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.myBlue {
+    box-shadow:inset 0px -3px 7px 0px #29bbff;
+    background:linear-gradient(to bottom, #2dabf9 5%, #0688fa 100%);
+    background-color:#2dabf9;
+    border-radius:3px;
+    border:1px solid #0b0e07;
+    display:inline-block;
+    cursor:pointer;
+    color:#ffffff;
+    font-family:Arial;
+    font-size:15px;
+    padding:9px 23px;
+    text-decoration:none;
+    text-shadow:0px 1px 0px #263666;
+}
+.myBlue:hover {
+    background:linear-gradient(to bottom, #0688fa 5%, #2dabf9 100%);
+    background-color:#0688fa;
+}
+.myBlue:active {
+    position:relative;
+    top:1px;
+}
+
+.myRed {
+    box-shadow:inset 0px 1px 0px 0px #cf866c;
+    background:linear-gradient(to bottom, #d0451b 5%, #bc3315 100%);
+    background-color:#d0451b;
+    border-radius:3px;
+    border:1px solid #942911;
+    display:inline-block;
+    cursor:pointer;
+    color:#ffffff;
+    font-family:Arial;
+    font-size:15px;
+    padding:9px 23px;
+    text-decoration:none;
+    text-shadow:0px 1px 0px #854629;
+}
+.myRed:hover {
+    background:linear-gradient(to bottom, #bc3315 5%, #d0451b 100%);
+    background-color:#bc3315;
+}
+.myRed:active {
+    position:relative;
+    top:1px;
+}
+
+.mySend {
+    background-color:#44c767;
+    border-radius:28px;
+    border:1px solid #18ab29;
+    display:inline-block;
+    cursor:pointer;
+    color:#ffffff;
+    font-family:Arial;
+    font-size:17px;
+    padding:9px 20px;
+    text-decoration:none;
+    text-shadow:0px 1px 0px #2f6627;
+}
+.mySend:hover {
+    background-color:#5cbf2a;
+}
+.mySend:active {
+    position:relative;
+    top:1px;
+}
+
+.myRoom {
+    box-shadow: 0px 1px 0px 0px #fff6af;
+    background:linear-gradient(to bottom, #ffec64 5%, #ffab23 100%);
+    background-color:#ffec64;
+    border-radius:6px;
+    border:1px solid #ffaa22;
+    display:inline-block;
+    cursor:pointer;
+    color:#333333;
+    font-family:Arial;
+    font-size:12px;
+    font-weight:bold;
+    padding:5px 16px;
+    text-decoration:none;
+    text-shadow:0px 1px 0px #ffee66;
+}
+.myRoom:hover {
+    background:linear-gradient(to bottom, #ffab23 5%, #ffec64 100%);
+    background-color:#ffab23;
+}
+.myRoom:active {
+    position:relative;
+    top:1px;
+}
+
+.myAction {
+    background-color:#44c767;
+    border-radius:28px;
+    border:1px solid #18ab29;
+    display:inline-block;
+    cursor:pointer;
+    color:#ffffff;
+    font-family:Arial;
+    font-size:15px;
+    padding:5px 10px;
+    text-decoration:none;
+    text-shadow:0px 1px 0px #2f6627;
+}
+.myAction:hover {
+    background-color:#5cbf2a;
+}
+.myAction:active {
+    position:relative;
+    top:1px;
+}
+
+.myGray {
+    box-shadow: 3px 4px 0px 0px #899599;
+    background:linear-gradient(to bottom, #ededed 5%, #bab1ba 100%);
+    background-color:#ededed;
+    border-radius:15px;
+    border:1px solid #d6bcd6;
+    display:inline-block;
+    cursor:pointer;
+    color:#3a8a9e;
+    font-family:Arial;
+    font-size:15px;
+    padding:5px 20px;
+    text-decoration:none;
+    text-shadow:0px 1px 0px #e1e2ed;
+}
+.myGray:hover {
+    background:linear-gradient(to bottom, #bab1ba 5%, #ededed 100%);
+    background-color:#bab1ba;
+}
+.myGray:active {
+    position:relative;
+    top:1px;
+}
