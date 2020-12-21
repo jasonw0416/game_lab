@@ -67,3 +67,10 @@ Restart-yes: A player replied yes to the opponent’s request to restart
 Restart-no: A player replied no to the opponent’s request to restart
 
 Disconnect: A player has disconnected (possibly leave the page or disconnect from internet) from the room; it is a default message that is sent whenever a client disconnects from the server. 
+
+
+# Graphical UI
+
+Multiple pages with polished graphical UI can now be experienced. 
+
+In addition, some improvement on quality of life features, such as forfeiting the match or "the opponent has left the game" message, is now implemented in the game. 
