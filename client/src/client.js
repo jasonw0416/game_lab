@@ -129,15 +129,6 @@ sock.on('blue', blue);
 // ----------------------------
 
 //----------- JOINING / LEAVING ROOM ------------------
-document.querySelector('#room1').addEventListener('click', function(e){
-    changeroom("room1")
-});
-document.querySelector('#room2').addEventListener('click', function(e){
-    changeroom("room2")
-});
-document.querySelector('#room3').addEventListener('click', function(e){
-    changeroom("room3")
-});
 
 function changeroom(joiningroom){
     console.log("attempting to join " + joiningroom);
