@@ -377,3 +377,7 @@ sock.on('restart-yes', function(){
 sock.on('restart-no', function(){
     alert("The opponent has disagreed to restart. Continue the game.")
 });
+
+sock.on('room_max', function(){
+    alert("The room is full. Please join another room");
+});
