@@ -91,7 +91,19 @@ io.sockets.on('connection', function(sock) {
 
     sock.on('join_attempt', (socketId, code) => {
         if (rooms.includes(code)){
-            io.to(socketId).emit('joining', code);
+            num = 0;
+            for (let i = 0; i < clientData.length; i++){
+                if (clientData[i][0] === code){
+                    num = clientData[i].length;
+                    break;
+                }
+            }
+            if (num < 3){
+                io.to(socketId).emit('joining', code);
+            }
+            else{
+                io.to(socketId).emit('room_max');
+            }
         }
         else{
             io.to(socketId).emit('join_error', code);
