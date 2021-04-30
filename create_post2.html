@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Post Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link href="https://cdn.quilljs.com/1.3.7/quill.snow.css" rel="stylesheet">
+    <script src="https://cdn.quilljs.com/1.3.7/quill.js"></script>
+</head>
+<style>
+    *{
+        margin: 0;
+        background: paleturquoise;
+    }
+    .menu-padding{
+        padding: 15px;
+    }
+    img{
+        max-width: 70%;
+        height: auto;
+    }
+    nav{
+        background: cornflowerblue;
+    }
+    a{
+        padding: 15px;
+        background: cornflowerblue;
+    }
+    .main-question{
+        width: 50%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .page-arrow{
+        background: white;
+    }
+    .pagination{
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .parallax {
+        background-image: url("images/chemistry.jpg");
+        /* Set a specific height */
+        min-height: 500px;
+        /* Create the parallax scrolling effect */
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    .blackborder{
+        border-color: #000000;
+    }
+</style>
+
+<body>
+<div class="menu-padding">
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" href="#">Chemiqualancer Forum Page</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <nav class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <nav class="navbar-nav">
+                <a class="nav-link active" href="/chemiqualancer/home.html/">Home <span class="sr-only"></span></a>
+                <a class="nav-link active" href="/chemiqualancer/forum.html/">Forum <span class="sr-only"></span></a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" style="color:black" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-expanded="false">
+                        Chapters
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item" href="#" style="color:black;">Chapter 1</a></li>
+                        <li><a class="dropdown-item" href="#" style="color:black;">Chapter 2</a></li>
+                        <li><a class="dropdown-item" href="#" style="color:black;">Chapter 3</a></li>
+                        <li><a class="dropdown-item" href="#" style="color:black;">Chapter 4</a></li>
+                        <li><a class="dropdown-item" href="#" style="color:black;">Chapter 5</a></li>
+                        <li><a class="dropdown-item" href="#" style="color:black;">Chapter 6</a></li>
+                        <li><a class="dropdown-item" href="#" style="color:black;">Chapter 7</a></li>
+                        <li><a class="dropdown-item" href="#" style="color:black;">Chapter 8</a></li>
+                        <li><a class="dropdown-item" href="#" style="color:black;">Chapter 9</a></li>
+                        <li><a class="dropdown-item" href="#" style="color:black;">Chapter 10</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" style="color:black" id="navbarDropdownMenuLink2" role="button" data-toggle="dropdown" aria-expanded="false">
+                        Topics
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item" href="#" style="color:black;">Acids and Bases</a></li>
+                        <li><a class="dropdown-item" href="#" style="color:black;">Molecules, Compounds</a></li>
+                        <li><a class="dropdown-item" href="#" style="color:black;">Chemical Reactions</a></li>
+                        <li><a class="dropdown-item" href="#" style="color:black;">Thermochemistry</a></li>
+                        <li><a class="dropdown-item" href="#" style="color:black;">Periodic Table</a></li>
+                        <li><a class="dropdown-item" href="#" style="color:black;">Chemical Bonding</a></li>
+                        <li><a class="dropdown-item" href="#" style="color:black;">Matter and States</a></li>
+                    </ul>
+                </li>
+            </nav>
+        </nav>
+    </nav>
+    <br>
+
+    <button id="getQues" class="btn btn-info">Get Question</button>
+
+    <div class="question" id="questionDisplay" style="display: none">
+        <div class="row">
+            <div class="col-sm-8 col-sm-offset-2">
+                <div id="question1" class="panel panel-default blackborder">
+                    <!--<div class="panel-heading">
+                        <h1 style="background-color:transparent">I HAVE A QUESTION</h1>
+                    </div>
+                    <div class="panel-body">ABCD<br>
+                        EFG<br>
+                        HIJK<br>
+                        LMN<br>
+                        OP<br>
+                        QRS<br>
+                        TUV<br>
+                        WX<br>
+                        YZ
+                    </div>-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button id="getAns" class="btn btn-info">Get Answer</button>
+
+
+    <div class="answer" id="answerDisplay" style="display: none">
+        <div class="row">
+            <div id="answer1" class="col-sm-8 col-sm-offset-2">
+            <!--<div class="panel panel-default blackborder">
+                    <div class="panel-heading" >
+                        <h4 style="background-color:transparent">Answer 1</h4>
+                        <p style="background-color:transparent">By Anonymous</p>
+                    </div>
+                    <div class="panel-body">ABCD<br>
+                        EFG<br>
+                        HIJK<br>
+                        LMN<br>
+                        OP<br>
+                        QRS<br>
+                        TUV<br>
+                        WX<br>
+                        YZ
+                    </div>-->
+                    <!--<div class="panel-footer">
+                        <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#comment1">Replies</button>
+                        <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#reply1" onclick=>Comment</button>
+                        <div id="comment1" class="collapse">
+                            <div class="comment" style="margin-top: 10px; background-color:#F5F5F5;">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <p style="background-color:transparent">Anonymous A</p>
+                                    </div>
+                                    <div class="panel-body">
+                                        I don't get it.
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <p style="background-color:transparent">Anonymous B</p>
+                                    </div>
+                                    <div class="panel-body">
+                                        What?
+                                    </div>
+                                </div>
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <p style="background-color:transparent">Anonymous C</p>
+                                    </div>
+                                    <div class="panel-body">
+                                        Great Answer! Thanks!
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="reply1" class="collapse">
+                            <div id="toolbar"></div>
+                            <div id="editor"></div>
+                            <button id="postText" class="btn btn-info">Post</button>
+                        </div>
+
+                    </div>
+                </div>-->
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-8 col-sm-offset-2">
+        <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#reply" onclick=>Post Answer</button>
+        <div id="reply" class="collapse">
+            <div id="toolbar"></div>
+            <div id="editor"></div>
+            <button id="postText" class="btn btn-info">Post</button>
+        </div>
+        <br>
+    </div>
+
+
+
+</div>
+</body>
+
+<script>
+    var toolbarOptions = [['bold', 'italic', 'underline', 'strike'],
+        ['blockquote', 'code-block'],
+        [{'list' : 'ordered'}, {'list' : 'bullet'}],
+        [{'script' : 'sub'}, {'script' : 'super'}],
+        [{'direction' : 'rtl'}],
+        [{'size' : ['small', false, 'large', 'huge']}],
+        [{'font' : []}],
+        ['link', 'image', 'video', 'formula'],
+        [{'color' : []}, {'background' : []}]];
+
+    var quill = new Quill('#editor', {
+        modules: {
+            toolbar: toolbarOptions
+        },
+        theme: 'snow'
+    });
+
+    $('#postText').click(function () {
+        window.post = quill.getContents();
+    });
+
+/*
+    var data2d = getDatabase();
+*/
+    var data2d = [
+        [
+            {
+                "textBoxId": 1,
+                "categoryId": 1,
+                "userId": 1,
+                "writtenText": "{\"ops\":[{\"insert\":\"Wonjun likes cookie run\\n\"}]}",
+                "boxPrevious": null,
+                "boxNext": 2
+            },
+            {
+                "textBoxId": 2,
+                "categoryId": 1,
+                "userId": 1,
+                "writtenText": "{\"ops\":[{\"insert\":\"Why does wonjun like cookie run?\\n\"}]}",
+                "boxPrevious": 1,
+                "boxNext": 3
+            },
+            {
+                "textBoxId": 3,
+                "categoryId": 1,
+                "userId": 1,
+                "writtenText": "{\"ops\":[{\"insert\":\"yes why does wonjun addicted to cookie run\\n\"}]}",
+                "boxPrevious": 2,
+                "boxNext": 4
+            },
+            {
+                "textBoxId": 4,
+                "categoryId": 1,
+                "userId": 1,
+                "writtenText": "{\"ops\":[{\"insert\":\"is it because he likes cookies or something else?\\n\"}]}",
+                "boxPrevious": 3,
+                "boxNext": null
+            }
+        ],
+        [
+            {
+                "textBoxId": 5,
+                "categoryId": 2,
+                "userId": 1,
+                "writtenText": "{\"ops\":[{\"insert\":\"What do you guys want to do when you grow up\\n\"}]}",
+                "boxPrevious": null,
+                "boxNext": 6
+            },
+            {
+                "textBoxId": 6,
+                "categoryId": 2,
+                "userId": 1,
+                "writtenText": "{\"ops\":[{\"insert\":\"I want to become a computer programmer\\n\"}]}",
+                "boxPrevious": 5,
+                "boxNext": 7
+            },
+            {
+                "textBoxId": 7,
+                "categoryId": 2,
+                "userId": 1,
+                "writtenText": "{\"ops\":[{\"insert\":\"I want to become an architect\\n\"}]}",
+                "boxPrevious": 6,
+                "boxNext": 8
+            },
+            {
+                "textBoxId": 8,
+                "categoryId": 2,
+                "userId": 1,
+                "writtenText": "{\"ops\":[{\"insert\":\"I want to become a nurse\\n\"}]}",
+                "boxPrevious": 7,
+                "boxNext": 9
+            },
+            {
+                "textBoxId": 9,
+                "categoryId": 2,
+                "userId": 1,
+                "writtenText": "{\"ops\":[{\"insert\":\"I want to become a pastor\\n\"}]}",
+                "boxPrevious": 8,
+                "boxNext": null
+            }
+        ],
+        [
+            {
+                "textBoxId": 10,
+                "categoryId": 3,
+                "userId": 1,
+                "writtenText": "{\"ops\":[{\"insert\":\"What animals do you like\\n\"}]}",
+                "boxPrevious": null,
+                "boxNext": 11
+            },
+            {
+                "textBoxId": 11,
+                "categoryId": 3,
+                "userId": 1,
+                "writtenText": "{\"ops\":[{\"insert\":\"I like dogs\\n\"}]}",
+                "boxPrevious": 10,
+                "boxNext": 12
+            },
+            {
+                "textBoxId": 12,
+                "categoryId": 3,
+                "userId": 1,
+                "writtenText": "{\"ops\":[{\"insert\":\"I like cats\\n\"}]}",
+                "boxPrevious": 11,
+                "boxNext": 13
+            },
+            {
+                "textBoxId": 13,
+                "categoryId": 3,
+                "userId": 1,
+                "writtenText": "{\"ops\":[{\"insert\":\"I like pandas\\n\"}]}",
+                "boxPrevious": 12,
+                "boxNext": 14
+            },
+            {
+                "textBoxId": 14,
+                "categoryId": 3,
+                "userId": 1,
+                "writtenText": "{\"ops\":[{\"insert\":\"I like cave spiders\\n\"}]}",
+                "boxPrevious": 13,
+                "boxNext": null
+            }
+        ],
+        [
+            {
+                "textBoxId": 15,
+                "categoryId": 4,
+                "userId": 1,
+                "writtenText": "{\"ops\":[{\"insert\":\"What do you like to do in your freetime?\\n\"}]}",
+                "boxPrevious": null,
+                "boxNext": 16
+            },
+            {
+                "textBoxId": 16,
+                "categoryId": 4,
+                "userId": 1,
+                "writtenText": "{\"ops\":[{\"insert\":\"I like to cook\\n\"}]}",
+                "boxPrevious": 15,
+                "boxNext": 17
+            },
+            {
+                "textBoxId": 17,
+                "categoryId": 4,
+                "userId": 1,
+                "writtenText": "{\"ops\":[{\"insert\":\"I like to play games\\n\"}]}",
+                "boxPrevious": 16,
+                "boxNext": null
+            }
+        ]
+    ];
+    console.log(data2d);
+
+
+    var quills = {};
+
+    $('#postText').click(function () {
+        window.post = quill.getContents();
+    });
+    /*$('#getQues').click(function () {
+        document.getElementById('questionDisplay').style.display = "";
+        data = data2d[0][0];
+        //data = {textBoxId: 2, writtenText: "{\"ops\":[{\"insert\":\"HI\\n\"}]}"};
+        console.log(data);
+        //quill3.setContents(JSON.parse(data.writtenText));
+        var id = "editor" + data.textBoxId;
+
+        document.getElementById('question1').innerHTML += `
+                    <div class="panel-heading">
+                        <h1 style="background-color:transparent">I HAVE A QUESTION</h1>
+                    </div>
+                    <div class="panel-body" id=`+ id + `>` + `</div>`;
+
+
+        var id_for_quills = '#' + id;
+        quills[data.textBoxId] = new Quill(id_for_quills, {
+            modules: {
+                toolbar: false
+            },
+            theme: 'snow'
+        });
+
+        quills[data.textBoxId].enable(false);
+        quills[data.textBoxId].setContents(JSON.parse(data.writtenText));
+
+    });*/
+
+    $('#getQues').click(function () {
+        document.getElementById('questionDisplay').style.display = "";
+        data = data2d[0][0];
+        //data = {textBoxId: 2, writtenText: "{\"ops\":[{\"insert\":\"HI\\n\"}]}"};
+        console.log(data);
+        //quill3.setContents(JSON.parse(data.writtenText));
+        var id = "editor" + data.textBoxId;
+
+        document.getElementById('question1').innerHTML += `
+                    <div class="panel-heading">
+                        <h1 style="background-color:transparent">I HAVE A QUESTION</h1>
+                    </div>
+                    <div class="panel-body" id=`+ id + `>` + `</div>`;
+
+
+        var id_for_quills = '#' + id;
+        quills[data.textBoxId] = new Quill(id_for_quills, {
+            modules: {
+                toolbar: false
+            },
+            theme: 'snow'
+        });
+
+        quills[data.textBoxId].enable(false);
+        quills[data.textBoxId].setContents(JSON.parse(data.writtenText));
+
+    });
+
+
+    /*$('#getAns').click(function () {
+        document.getElementById('answerDisplay').style.display = "";
+        for (let i = 1; i < data2d[0].length; i++){
+            data = data2d[0][i];
+            var id = "editor" + data.textBoxId;
+
+            document.getElementById('answer1').innerHTML += `
+                <div class="panel panel-default blackborder">
+                    <div class="panel-heading" >
+                        <h4 style="background-color:transparent">Answer 1</h4>
+                        <p style="background-color:transparent">By Anonymous</p>
+                    </div>
+                    <div class="panel-body" id=`+ id + `>` + `</div></div>`;
+
+
+            var id_for_quills = '#' + id;
+            quills[data.textBoxId] = new Quill(id_for_quills, {
+                modules: {
+                    toolbar: false
+                },
+                theme: 'snow'
+            });
+
+            quills[data.textBoxId].enable(false);
+            quills[data.textBoxId].setContents(JSON.parse(data.writtenText));
+        }
+
+    });*/
+
+    $('#getAns').click(function () {
+        document.getElementById('answerDisplay').style.display = "";
+        for (let i = 1; i < data2d[0].length; i++){
+            data = data2d[0][i];
+            var id = "editor" + data.textBoxId;
+
+            document.getElementById('answer1').innerHTML += `
+                <div class="panel panel-default blackborder">
+                    <div class="panel-heading" >
+                        <h4 style="background-color:transparent">Answer 1</h4>
+                        <p style="background-color:transparent">By Anonymous</p>
+                    </div>
+                    <div class="panel-body" id=`+ id + `>` + `</div></div>`;
+
+
+            var id_for_quills = '#' + id;
+            quills[data.textBoxId] = new Quill(id_for_quills, {
+                modules: {
+                    toolbar: false
+                },
+                theme: 'snow'
+            });
+
+            quills[data.textBoxId].enable(false);
+            quills[data.textBoxId].setContents(JSON.parse(data.writtenText));
+        }
+
+    });
+
+    function getDatabase () {
+        $.get("/api/textBoxes",
+            function(data, status) {
+                alert(data);
+            }
+
+        )
+    }
+
+    //console.log(getDatabase()); <- gets everything from database table textBox
+
+
+
+</script>
+</html>
